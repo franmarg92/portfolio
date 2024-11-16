@@ -1,0 +1,90 @@
+<nav>
+  <div class="start-bar">
+    <div class="start-menu">
+      <button class="start-button" (click)="toggleDropdown()">
+        <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/206ea28b-5f34-4284-af5c-299ce7027b6f/dfqreld-097d0399-75b1-4ff7-8ace-df7a1cc046a5.png/v1/fill/w_966,h_827/windows_98_symbol_logo_png_by_love16love24_dfqreld-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9ODU2IiwicGF0aCI6IlwvZlwvMjA2ZWEyOGItNWYzNC00Mjg0LWFmNWMtMjk5Y2U3MDI3YjZmXC9kZnFyZWxkLTA5N2QwMzk5LTc1YjEtNGZmNy04YWNlLWRmN2ExY2MwNDZhNS5wbmciLCJ3aWR0aCI6Ijw9MTAwMCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.l16fa5Ql5wxWxdXqlB6nmYfulnSHM6HJ1QpD2BAWQgk" alt="Start Icon" />
+        Inicio
+      </button>
+      <div class="dropdown" [class.show]="isDropdownOpen">
+       
+        <a class="dropdown-item" (click)="openWindow('Sobre mi', '/about')"><img src="address_book_user.png" alt="documento">Sobre mi</a>
+        <a class="dropdown-item" (click)="openWindow('Habilidades', '/habilidades')"><img src="shell_window3.png" alt="pc">Habilidades</a>
+        <a class="dropdown-item" (click)="openWindow('contacto', '/contact')"><img src="envelope_open_sheet-0.png" alt="carta">Contacto</a>
+        <a class="dropdown-item" (click)="openWindow('estudios', '/estudios')"><img src="search_file_2-4.png" alt="search">Estudios</a>
+        <hr>
+        <a class="dropdown-item" > <img src="help_book_computer-0.png" alt="book">Ayuda</a>
+        <a class="dropdown-item" ><img src="computer_win_lock-1.png" alt="cerrar">Cerrar sesion</a>
+        <a class="dropdown-item" ><img src="shut_down_cool-0.png" alt="">Apagar</a>
+
+      </div>
+      <div class="task-items">
+        <ng-container *ngFor="let window of openWindows">
+          <div 
+            class="taskbar-item" 
+            (click)="restoreWindow(window)">
+            {{ window.title }}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    
+    
+    <div class="task-info">
+      <span>{{ userName }}</span>
+      <span class="currentTime">{{ currentTime | date: 'HH:mm  dd/MM/yyyy' }}</span>
+    </div>
+  </div>
+</nav>
+
+
+<main>
+<div class="iconsConteiner ">
+  <div  class="icon" (dblclick)="openWindow('Sobre mi', '/about')">
+    <img src="address_book_user.png" alt="documento">
+    <p>Sobre mi</p>
+  </div>
+  <div class="icon" (dblclick)="openWindow('Habilidades', '/habilidades')">
+     <img src="shell_window3.png" alt="documento">
+    <p>Habilidades</p>
+  </div>
+  <div class="icon" (dblclick)="openWindow('Estudios', '/estudios')">
+    <img src="search_file_2-4.png" alt="documento">
+   <p>Estudios</p>
+ </div>
+  <div class="icon" (dblclick)="openWindow('Contacto', '/contact')"> 
+    <img src="envelope_open_sheet-0.png" alt="documento">
+    <p>Contacto</p>
+  </div>
+  <div class="icon" (dblclick)="downloadCV()"> 
+    <img src="signature-1.png" alt="documento">
+    <p>Curriculum</p>
+  </div>
+  <div class="icon" (dblclick)="openWindow('Calculadora', '/calculadora')"> 
+    <img src="calculator-0.png" alt="documento">
+    <p>Calculadora</p>
+  </div>
+</div>
+
+
+
+
+<div *ngFor="let window of openWindows">
+  <div *ngIf="!window.minimized" class="window" 
+       [ngClass]="{'calculadora': window.title === 'Calculadora'}">
+    <div class="window-header">
+      <div>
+        <span class="window-title">{{ window.title }}</span>
+      </div>
+      <div>
+        <button class="minimize-button">_</button>
+        <button class="close-button" (click)="closeWindow(window)">✖</button>
+      </div>
+    </div>
+    <div class="window-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+</main>
+
+

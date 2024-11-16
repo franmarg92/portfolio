@@ -1,0 +1,31 @@
+<div class="calculator">
+    <input
+      type="text"
+      id="pantalla"
+      [(ngModel)]="pantalla"
+      readonly
+    />
+    <div class="buttons">
+      
+      <button class="button" (click)="agregar('1')">1</button>
+      <button class="button" (click)="agregar('2')">2</button>
+      <button class="button" (click)="agregar('3')">3</button>
+      <button class="button" (click)="agregar('+')">+</button>
+      <br />
+      <button class="button" (click)="agregar('4')">4</button>
+      <button class="button" (click)="agregar('5')">5</button>
+      <button class="button" (click)="agregar('6')">6</button>
+      <button class="button" (click)="agregar('-')">-</button>
+      <br />
+      <button class="button" (click)="agregar('7')">7</button>
+      <button class="button" (click)="agregar('8')">8</button>
+      <button class="button" (click)="agregar('9')">9</button>
+      <button class="button" (click)="agregar('*')">*</button>
+      <br />
+      <button class="button" (click)="borrar()">C</button>
+      <button class="button" (click)="agregar('0')">0</button>
+      <button class="button" (click)="calcular()">=</button>
+      <button class="button" (click)="agregar('/')">/</button>
+    </div>
+  </div>
+  
