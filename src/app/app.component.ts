@@ -1,6 +1,18 @@
 import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Router } from '@angular/router';
+
+import { AboutMeComponent } from './about-me/about-me.component';
+import { HabilidadesComponent } from './habilidades/habilidades.component';
+import { ContactComponent } from './contact/contact.component';
+import { EstudiosComponent } from './estudios/estudios.component';
+import { CalculadoraComponent } from './calculadora/calculadora.component';
+import { ExperienciasComponent } from './experiencias/experiencias.component';
+
+interface WindowItem {
+  title: string;
+  component: any;
+  minimized: boolean;
+}
 
 @Component({
   selector: 'app-root',
@@ -11,14 +23,18 @@ export class AppComponent {
   title = 'portfolio';
   isDropdownOpen: boolean = false;
   userName: string = 'Franco Gabrielleschi';
-  openWindows: {title: string; route: string; minimized: boolean }[] = [];
+  openWindows: WindowItem[] = [];
   currentTime = new Date();
-window: any;
+  isMobile: boolean = false;
+  lastClickTime: number = 0;
 
-
-  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {
+ngOnInit() {
+  if (isPlatformBrowser(this.platformId)) {
+    this.isMobile = window.innerWidth <= 768;
+  }
+}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
-      // Ejecuta solo en el cliente
       setInterval(() => this.updateTime(), 1000);
     }
   }
@@ -39,41 +55,60 @@ window: any;
     }
   }
 
-  openWindow(title: string, route: string): void {
-    const existingWindow = this.openWindows.find((win) => win.route === route);
-    if (!existingWindow) {
+
+handleIconClick(title: string): void {
+  if (this.isMobile) {
+    this.openWindow(title); 
+  } else {
+    const now = new Date().getTime();
+    if (now - this.lastClickTime < 300) {
+      this.openWindow(title); 
+    }
+    this.lastClickTime = now;
+  }
+}
+  openWindow(title: string): void {
+    const componentMap: { [key: string]: any } = {
+      'Sobre_mi': AboutMeComponent,
+      'Habilidades': HabilidadesComponent,
+      'Contacto': ContactComponent,
+      'Estudios': EstudiosComponent,
+      'Experiencias': ExperienciasComponent,
+      'Calculadora': CalculadoraComponent
       
-      this.openWindows.push({ title, route, minimized: false });
-      this.router.navigate([route]);
-    } else {
-      
+    };
+
+    const existingWindow = this.openWindows.find(win => win.title === title);
+
+    if (!existingWindow && componentMap[title]) {
+      this.openWindows.push({
+        title,
+        component: componentMap[title],
+        minimized: false
+      });
+    } else if (existingWindow) {
       existingWindow.minimized = false;
-      this.router.navigate([route]);
     }
   }
-  minimizeWindow(window: { title: string; route: string; minimized: boolean }): void {
-    window.minimized = true; 
-  }
-  
-  restoreWindow(window: { title: string; route: string; minimized: boolean }): void {
-    window.minimized = false; 
-    this.router.navigate([window.route]); 
-  }
-  
 
-  closeWindow(windowToClose: { title: string; route: string }): void {
+  minimizeWindow(win: WindowItem): void {
+    win.minimized = true;
+  }
+
+  restoreWindow(win: WindowItem): void {
+    win.minimized = false;
+  }
+
+  closeWindow(winToClose: WindowItem): void {
     this.openWindows = this.openWindows.filter(
-      (window) => window.route !== windowToClose.route
+      win => win.title !== winToClose.title
     );
   }
 
-
   downloadCV(): void {
     const link = document.createElement('a');
-    link.href = 'Franco.Gabrielleschi.Martin.pdf'; 
-    link.download = 'CV_Franco_Gabrielleschi.pdf'; 
+    link.href = 'assets/FrancoGabrielleschiCV.pdf';
+    link.download = 'CV_Franco_Gabrielleschi.pdf';
     link.click();
   }
-
-  
 }

@@ -9,6 +9,7 @@ import { CalculadoraComponent } from './calculadora/calculadora.component';
 import { EstudiosComponent } from './estudios/estudios.component';
 import { CommonModule } from '@angular/common';
 import { HabilidadesComponent } from './habilidades/habilidades.component';
+import { ExperienciasComponent } from './experiencias/experiencias.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HabilidadesComponent } from './habilidades/habilidades.component';
     ContactComponent,
     CalculadoraComponent,
     EstudiosComponent,
-    HabilidadesComponent
+    HabilidadesComponent,
+    ExperienciasComponent
   ],
   imports: [
     BrowserModule,

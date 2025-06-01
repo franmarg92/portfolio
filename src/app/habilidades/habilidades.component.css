@@ -23,6 +23,8 @@
     }
   }
 
+  
+
   .img-conteiner {
     display: flex;
     flex-wrap: wrap; 
@@ -50,3 +52,24 @@
     transform: rotate(360deg) scale(1.5);
   }
   
+
+   @media (max-width: 768px) {
+
+    .img-conteiner {
+    display: flex;
+    flex-wrap: wrap; 
+    margin-top: 50px;
+    
+    gap: 30px; 
+  }
+
+    .img-conteiner img {
+    width: 80px; 
+    height: auto; 
+    max-width: 120px; 
+    margin: 0 auto; 
+    
+  }
+    
+
+}

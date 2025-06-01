@@ -204,7 +204,7 @@
 }
 
 .icon:hover {
-  background-color: rgba(128, 128, 128, 0.2);
+  background-color: rgba(232, 223, 223, 0.2);
 }
 .task-items{
   display: flex;
@@ -230,6 +230,18 @@
   border: 2px inset #808080;
 }
 
+.window {
+  min-width: 300px; 
+  min-height: 300px; 
+}
+
+
+.taskbar-item {
+  font-size: 10px; 
+  padding: 3px 8px;
+}
+
+
 
 @media (max-width: 768px) {
   .window {
@@ -243,7 +255,7 @@
     flex-direction: row; 
     flex-wrap: wrap; 
     justify-content: center; 
-    gap: 15px; 
+    gap: 30px; 
     margin: 15px auto; 
   }
 
@@ -256,19 +268,14 @@
     max-width: 50px; 
     max-height: 50px;
   }
+
+  .start-bar{
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 
 
 
 
-.window {
-  min-width: 300px; 
-  min-height: 300px; 
-}
-
-
-.taskbar-item {
-  font-size: 10px; 
-  padding: 3px 8px;
-}

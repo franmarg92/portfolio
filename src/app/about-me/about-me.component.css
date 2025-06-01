@@ -52,6 +52,11 @@
     font-weight: normal;
 }
 
+ul{
+  color: white;
+  list-style-type: none;
+  font-size: 18px;
+}
 
 hr {
     border: none;
@@ -92,5 +97,20 @@ p {
       background-position: 0% 50%;
     }
   }
+
+
+  @media (max-width: 768px) {
+  .profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: left;
+    padding: 20px;
+    gap: 20px;
+    
+    
+}
+}
 
 
